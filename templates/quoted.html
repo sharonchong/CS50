@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <div>
+        <p>
+            1 share of {{ quoted.name }} ({{ quoted.symbol }}) costs {{ quoted.price | usd}}.
+        </p>
+    </div>
+    
+    <div class="quoted">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>Symbol</td>
+                    <td>{{ quoted.symbol }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ quoted.name }}</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>{{ quoted.price | usd }}</td>
+                </tr>
+                <tr>
+                    <td>Market Capitalisation</td>
+                    <td>${{ marketCap_rounded }}</td>
+                </tr>
+                <tr>
+                    <td>P/E Ratio</td>
+                    <td>{{ quoted.peRatio }}</td>
+                </tr>
+                <tr>
+                    <td>52-Week High</td>
+                    <td>{{ quoted.week52High | usd }}</td>
+                </tr>
+                <tr>
+                    <td>52-Week Low</td>
+                    <td>{{ quoted.week52Low | usd }}</td>
+                </tr>
+                <tr>
+                    <td>YTD Change</td>
+                    <td>{{ quoted.ytdChange }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Current Price</th>
+                <th>Total</th>
+                <th>Return</th>
+                <th>Portfolio Allocation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in positions %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.shares }}</td>
+                    <td>{{ stock.current_price | usd }}</td>
+                    <td>{{ stock.total | usd }}</td>
+                    {% if stock.return < 0 %}
+                        <td style="color: red">{{ stock.return | usd }} ({{ stock.returnpct }})</td>
+                    {% elif stock.return > 0 %}
+                        <td style="color: green">{{ stock.return | usd }} ({{ stock.returnpct }})</td>
+                    {% else %}
+                        <td>{{ stock.return | usd }} ({{ stock.returnpct }})</td>
+                    {% endif %}
+                    <td>{{ stock.weight }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>CASH</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ cash | usd }}</td>
+                    <td></td>
+                    <td>{{ cash_weight }}</td>
+                </tr>
+            </tbody>
+            <tfoot class="index_foot">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ grand_total | usd }}</td>
+                    {% if total_return < 0 %}
+                        <td style="color: red">{{ total_return | usd }} ({{ total_returnpct }})</td>
+                    {% elif total_return > 0 %}
+                        <td style="color: green">{{ total_return | usd }} ({{ total_returnpct }})</td>
+                    {% else %}
+                        <td>{{ total_return | usd }} ({{ total_returnpct }})</td>
+                    {% endif %}
+                    <td>100%</td>
+                </tr>
+            </tfoot>
+    </table>
+</div>
+
+{% endblock %}
